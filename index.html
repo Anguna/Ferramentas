@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Hub de Ferramentas</title>
+    <title>Super ToolBox Pro</title>
     <style>
         :root {
-            --primary: #6366f1;
-            --bg: #f8fafc;
-            --card: #ffffff;
-            --text: #1e293b;
+            --primary: #4f46e5;
+            --secondary: #10b981;
+            --bg: #0f172a;
+            --card: #1e293b;
+            --text: #f1f5f9;
+            --border: #334155;
         }
 
         body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-family: 'Inter', system-ui, sans-serif;
             background-color: var(--bg);
             color: var(--text);
             margin: 0;
@@ -21,181 +23,261 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
+            padding-bottom: 50px;
         }
 
         header {
             width: 100%;
-            padding: 2rem 0;
+            padding: 3rem 0;
             text-align: center;
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            margin-bottom: 40px;
         }
 
-        .nav-tabs {
-            display: flex;
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             gap: 10px;
-            margin-top: -25px;
-            z-index: 10;
+            width: 90%;
+            max-width: 800px;
+            margin-bottom: 30px;
         }
 
         .tab-btn {
-            padding: 12px 24px;
-            border: none;
-            background: white;
+            padding: 12px;
+            border: 1px solid var(--border);
+            background: var(--card);
             border-radius: 12px;
             cursor: pointer;
-            font-weight: 600;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            transition: 0.3s;
             color: var(--text);
+            font-size: 0.85rem;
+            transition: 0.3s;
         }
 
         .tab-btn.active {
             background: var(--primary);
-            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(79, 70, 229, 0.4);
         }
 
         .container {
             width: 90%;
-            max-width: 500px;
-            margin-top: 50px;
+            max-width: 600px;
         }
 
         .content {
             display: none;
             background: var(--card);
             padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            animation: slideUp 0.4s ease;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            animation: fadeIn 0.4s ease;
         }
 
         .content.active { display: block; }
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+
+        h2 { margin-top: 0; color: #fff; border-bottom: 2px solid var(--primary); padding-bottom: 10px; }
+
+        .form-group { margin: 20px 0; text-align: left; }
+        label { display: block; margin-bottom: 8px; color: #94a3b8; font-size: 0.9rem; }
+        input, select, textarea {
+            width: 100%; padding: 12px; background: #0f172a; border: 1px solid var(--border);
+            border-radius: 10px; color: white; font-size: 1rem; box-sizing: border-box;
+        }
+        
+        button.main-btn {
+            width: 100%; padding: 15px; background: var(--primary); color: white;
+            border: none; border-radius: 10px; font-weight: bold; cursor: pointer; transition: 0.2s;
+        }
+        button.main-btn:hover { filter: brightness(1.2); }
+
+        .result {
+            margin-top: 20px; padding: 15px; border-radius: 10px;
+            background: rgba(79, 70, 229, 0.1); border-left: 4px solid var(--primary);
+            word-break: break-all;
         }
 
-        /* Estilos Comuns de Formuário */
-        .form-group { margin-bottom: 15px; text-align: left; }
-        label { display: block; margin-bottom: 5px; font-size: 0.9rem; font-weight: 600; }
-        input, select {
-            width: 100%; padding: 12px; border: 1px solid #e2e8f0;
-            border-radius: 10px; font-size: 1rem; box-sizing: border-box;
-        }
-        button.action-btn {
-            width: 100%; padding: 15px; background: var(--primary);
-            color: white; border: none; border-radius: 10px;
-            font-size: 1rem; font-weight: bold; cursor: pointer; margin-top: 10px;
-        }
-        .result-box {
-            margin-top: 20px; padding: 15px; border-radius: 10px;
-            background: #f1f5f9; text-align: center;
-        }
+        code { background: #000; padding: 4px 8px; border-radius: 4px; color: #10b981; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>ToolBox Pro</h1>
-    <p>Suas ferramentas em um só lugar</p>
+    <h1>Super ToolBox Pro</h1>
+    <p>Todas as ferramentas que você precisa</p>
 </header>
 
-<div class="nav-tabs">
-    <button class="tab-btn active" onclick="openTab('calorias')">Calorias</button>
-    <button class="tab-btn" onclick="openTab('imc')">IMC</button>
-    <button class="tab-btn" onclick="openTab('bissexto')">Bissexto</button>
+<div class="nav-grid">
+    <button class="tab-btn active" onclick="openTab('calorias')">🔥 Calorias</button>
+    <button class="tab-btn" onclick="openTab('imc')">⚖️ IMC</button>
+    <button class="tab-btn" onclick="openTab('bissexto')">📅 Bissexto</button>
+    <button class="tab-btn" onclick="openTab('senha')">🔐 Senhas</button>
+    <button class="tab-btn" onclick="openTab('texto')">📝 Texto</button>
+    <button class="tab-btn" onclick="openTab('clima')">🌡️ Temp</button>
+    <button class="tab-btn" onclick="openTab('pomodoro')">⏱️ Pomodoro</button>
 </div>
 
 <div class="container">
     <div id="calorias" class="content active">
-        <h2>🔥 Calculadora de Calorias</h2>
+        <h2>Calculadora de Calorias</h2>
         <div class="form-group">
             <label>Peso (kg)</label>
-            <input type="number" id="cal-peso" placeholder="80">
-        </div>
-        <div class="form-group">
-            <label>Altura (cm)</label>
-            <input type="number" id="cal-altura" placeholder="175">
+            <input type="number" id="cal-p" placeholder="Ex: 80">
         </div>
         <div class="form-group">
             <label>Idade</label>
-            <input type="number" id="cal-idade" placeholder="25">
+            <input type="number" id="cal-i" placeholder="Ex: 25">
         </div>
-        <button class="action-btn" onclick="calcCalorias()">Calcular Meta</button>
-        <div id="res-cal" class="result-box" style="display:none"></div>
+        <button class="main-btn" onclick="calcCal()">Calcular Meta</button>
+        <div id="res-cal" class="result" style="display:none"></div>
     </div>
 
     <div id="imc" class="content">
-        <h2>⚖️ Calculadora de IMC</h2>
+        <h2>Índice de Massa Corporal</h2>
         <div class="form-group">
             <label>Peso (kg)</label>
-            <input type="number" id="imc-peso" step="0.1">
+            <input type="number" id="imc-p" step="0.1">
         </div>
         <div class="form-group">
             <label>Altura (m)</label>
-            <input type="number" id="imc-altura" step="0.01">
+            <input type="number" id="imc-a" step="0.01">
         </div>
-        <button class="action-btn" onclick="calcIMC()">Calcular IMC</button>
-        <div id="res-imc" class="result-box" style="display:none"></div>
+        <button class="main-btn" onclick="calcIMC()">Verificar IMC</button>
+        <div id="res-imc" class="result" style="display:none"></div>
     </div>
 
     <div id="bissexto" class="content">
-        <h2>📅 Verificador de Ano</h2>
+        <h2>Ano Bissexto</h2>
         <div class="form-group">
             <label>Digite o Ano</label>
-            <input type="number" id="ano-input">
+            <input type="number" id="ano-val">
         </div>
-        <button class="action-btn" onclick="calcBissexto()">É Bissexto?</button>
-        <div id="res-ano" class="result-box" style="display:none"></div>
+        <button class="main-btn" onclick="calcAno()">Verificar</button>
+        <div id="res-ano" class="result" style="display:none"></div>
+    </div>
+
+    <div id="senha" class="content">
+        <h2>Gerador de Senha</h2>
+        <div class="form-group">
+            <label>Tamanho da senha (8-20)</label>
+            <input type="number" id="pass-len" value="12" min="8" max="20">
+        </div>
+        <button class="main-btn" onclick="genPass()">Gerar Senha Forte</button>
+        <div id="res-pass" class="result" style="display:none"></div>
+    </div>
+
+    <div id="texto" class="content">
+        <h2>Analisador de Texto</h2>
+        <textarea id="text-input" rows="5" placeholder="Cole seu texto aqui..." oninput="analyzeText()"></textarea>
+        <div id="res-text" class="result">
+            Palavras: <span id="count-w">0</span> | Caracteres: <span id="count-c">0</span>
+        </div>
+    </div>
+
+    <div id="clima" class="content">
+        <h2>Conversor de Temperatura</h2>
+        <div class="form-group">
+            <label>Celsius para Fahrenheit</label>
+            <input type="number" id="temp-c" placeholder="°C" oninput="convertTemp()">
+        </div>
+        <div class="result" id="res-temp">Fahrenheit: -- °F</div>
+    </div>
+
+    <div id="pomodoro" class="content">
+        <h2>Timer Pomodoro</h2>
+        <div style="font-size: 3rem; text-align: center; margin: 20px 0;" id="timer-display">25:00</div>
+        <button class="main-btn" id="pomo-btn" onclick="togglePomo()">Iniciar Foco</button>
     </div>
 </div>
 
 <script>
-    // Navegação de Abas
-    function openTab(tabId) {
+    // Navegação
+    function openTab(id) {
         document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById(tabId).classList.add('active');
+        document.getElementById(id).classList.add('active');
         event.currentTarget.classList.add('active');
     }
 
     // Lógica Calorias
-    function calcCalorias() {
-        const p = document.getElementById('cal-peso').value;
-        const a = document.getElementById('cal-altura').value;
-        const i = document.getElementById('cal-idade').value;
-        if(!p || !a || !i) return alert("Preencha tudo!");
-        
-        const tmb = 66.5 + (13.75 * p) + (5.0 * a) - (6.7 * i);
-        const res = document.getElementById('res-cal');
-        res.style.display = 'block';
-        res.innerHTML = `Sua Taxa Basal é: <strong>${Math.round(tmb)} kcal</strong>`;
+    function calcCal() {
+        const p = document.getElementById('cal-p').value;
+        const i = document.getElementById('cal-i').value;
+        if(!p || !i) return;
+        const res = 66 + (13.7 * p) - (6.8 * i);
+        const div = document.getElementById('res-cal');
+        div.style.display = 'block';
+        div.innerHTML = `Sua Taxa Metabólica estimada: <strong>${Math.round(res)} kcal</strong>`;
     }
 
     // Lógica IMC
     function calcIMC() {
-        const p = document.getElementById('imc-peso').value;
-        const a = document.getElementById('imc-altura').value;
-        if(!p || !a) return alert("Preencha tudo!");
-
+        const p = document.getElementById('imc-p').value;
+        const a = document.getElementById('imc-a').value;
         const imc = (p / (a * a)).toFixed(1);
-        const res = document.getElementById('res-imc');
-        res.style.display = 'block';
-        res.innerHTML = `Seu IMC é: <strong>${imc}</strong>`;
+        const div = document.getElementById('res-imc');
+        div.style.display = 'block';
+        div.innerHTML = `Seu IMC: <strong>${imc}</strong>`;
     }
 
     // Lógica Bissexto
-    function calcBissexto() {
-        const ano = document.getElementById('ano-input').value;
-        const res = document.getElementById('res-ano');
-        if(!ano) return;
+    function calcAno() {
+        const ano = document.getElementById('ano-val').value;
+        const bi = (ano % 4 === 0 && ano % 100 !== 0) || (ano % 400 === 0);
+        const div = document.getElementById('res-ano');
+        div.style.display = 'block';
+        div.innerHTML = bi ? "✅ É Bissexto!" : "❌ Não é Bissexto.";
+    }
 
-        const bissexto = (ano % 4 === 0 && ano % 100 !== 0) || (ano % 400 === 0);
-        res.style.display = 'block';
-        res.innerHTML = bissexto ? "✅ Sim, é Bissexto!" : "❌ Não é Bissexto.";
+    // Gerador de Senhas
+    function genPass() {
+        const len = document.getElementById('pass-len').value;
+        const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
+        let pass = "";
+        for(let i=0; i<len; i++) pass += chars.charAt(Math.floor(Math.random()*chars.length));
+        const div = document.getElementById('res-pass');
+        div.style.display = 'block';
+        div.innerHTML = `Senha: <code>${pass}</code>`;
+    }
+
+    // Analisador de Texto
+    function analyzeText() {
+        const txt = document.getElementById('text-input').value.trim();
+        document.getElementById('count-w').innerText = txt ? txt.split(/\s+/).length : 0;
+        document.getElementById('count-c').innerText = txt.length;
+    }
+
+    // Conversor Temp
+    function convertTemp() {
+        const c = document.getElementById('temp-c').value;
+        const f = (c * 9/5) + 32;
+        document.getElementById('res-temp').innerText = c ? `Fahrenheit: ${f.toFixed(1)} °F` : "Fahrenheit: -- °F";
+    }
+
+    // Pomodoro Simples
+    let timer;
+    let seconds = 1500;
+    function togglePomo() {
+        const btn = document.getElementById('pomo-btn');
+        if (timer) {
+            clearInterval(timer);
+            timer = null;
+            btn.innerText = "Retomar";
+        } else {
+            btn.innerText = "Pausar";
+            timer = setInterval(() => {
+                seconds--;
+                let min = Math.floor(seconds / 60);
+                let sec = seconds % 60;
+                document.getElementById('timer-display').innerText = `${min}:${sec < 10 ? '0'+sec : sec}`;
+                if (seconds <= 0) {
+                    clearInterval(timer);
+                    alert("Tempo esgotado!");
+                }
+            }, 1000);
+        }
     }
 </script>
 
