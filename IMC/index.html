@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de IMC</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <form id="meuFormulario">
+        <div class="campo">
+            <label for="peso">Peso (kg):</label>
+            <input type="number" id="peso" name="peso" min="10" max="500" step="0.1" placeholder="Ex: 70.5" required>
+        </div>
+
+        <div class="campo">
+            <label for="altura">Altura (m):</label>
+            <input type="number" id="altura" name="altura" min="0.5" max="2.5" step="0.01" placeholder="Ex: 1.75" required>
+        </div>
+
+        <button type="button" onclick="calcularIMC()">Calcular</button>
+    </form>
+
+    <div id="resultado"></div>
+
+    <script>
+        function calcularIMC() {
+            // 1. Captura os VALORES e converte para número
+            let peso = Number(document.getElementById('peso').value);
+            let altura = Number(document.getElementById('altura').value);
+            let resultadoDiv = document.getElementById('resultado');
+
+            // 2. Validação (agora verificando os valores numéricos)
+            if (!peso || !altura || altura <= 0) {
+                resultadoDiv.innerHTML =  "<p style='font-family: sans-serif; font-size: 18px; margin-top: 15px; text-align: center; color: red;'>Por favor, preencha os valores corretamente.</p>";
+                return;
+            }
+
+            // 3. Cálculo do IMC
+            let imc = (peso / (altura * altura)).toFixed(2);
+            let classificacao = "";
+
+            if (imc < 18.5) {
+                classificacao = "Abaixo do peso";
+            } else if (imc < 24.9) {
+                classificacao = "Peso normal";
+            } else if (imc < 29.9) {
+                classificacao = "Sobrepeso";
+            } else {
+                classificacao = "Obesidade";
+            }
+
+            // 4. Exibe o resultado
+            resultadoDiv.innerHTML = `<p style="font-family: sans-serif; font-size: 18px; margin-top: 15px; text-align: center;">Seu IMC é <strong>${imc}</strong> (${classificacao}).</p>`;
+        }
+    </script>
+</body>
+</html>
