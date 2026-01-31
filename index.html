@@ -3,19 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Super ToolBox Pro</title>
+    <title>Super ToolBox Pro - 8 em 1</title>
     <style>
         :root {
-            --primary: #4f46e5;
+            --primary: #6366f1;
             --secondary: #10b981;
             --bg: #0f172a;
             --card: #1e293b;
             --text: #f1f5f9;
             --border: #334155;
+            --accent: #f43f5e;
         }
 
+        * { box-sizing: border-box; transition: all 0.2s ease; }
+
         body {
-            font-family: 'Inter', system-ui, sans-serif;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
             background-color: var(--bg);
             color: var(--text);
             margin: 0;
@@ -28,42 +31,48 @@
 
         header {
             width: 100%;
-            padding: 3rem 0;
+            padding: 2.5rem 1rem;
             text-align: center;
             background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-            margin-bottom: 40px;
-        }
-
-        .nav-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 10px;
-            width: 90%;
-            max-width: 800px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             margin-bottom: 30px;
         }
 
+        h1 { margin: 0; font-size: 2rem; letter-spacing: -1px; }
+        header p { opacity: 0.8; font-size: 0.9rem; margin-top: 5px; }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            width: 95%;
+            max-width: 800px;
+            margin-bottom: 25px;
+        }
+
+        @media (max-width: 500px) { .nav-grid { grid-template-columns: repeat(2, 1fr); } }
+
         .tab-btn {
-            padding: 12px;
+            padding: 12px 5px;
             border: 1px solid var(--border);
             background: var(--card);
             border-radius: 12px;
             cursor: pointer;
             color: var(--text);
-            font-size: 0.85rem;
-            transition: 0.3s;
+            font-size: 0.8rem;
+            font-weight: 600;
         }
+
+        .tab-btn:hover { border-color: var(--primary); background: #2d3a4f; }
 
         .tab-btn.active {
             background: var(--primary);
             border-color: var(--primary);
-            box-shadow: 0 0 15px rgba(79, 70, 229, 0.4);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+            transform: translateY(-2px);
         }
 
-        .container {
-            width: 90%;
-            max-width: 600px;
-        }
+        .container { width: 95%; max-width: 550px; }
 
         .content {
             display: none;
@@ -71,141 +80,127 @@
             padding: 2rem;
             border-radius: 24px;
             border: 1px solid var(--border);
-            animation: fadeIn 0.4s ease;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            animation: fadeIn 0.3s ease-out;
         }
 
         .content.active { display: block; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        h2 { margin-top: 0; color: #fff; border-bottom: 2px solid var(--primary); padding-bottom: 10px; }
+        h2 { margin-top: 0; font-size: 1.3rem; color: #fff; margin-bottom: 20px; }
 
-        .form-group { margin: 20px 0; text-align: left; }
-        label { display: block; margin-bottom: 8px; color: #94a3b8; font-size: 0.9rem; }
+        .form-group { margin-bottom: 18px; text-align: left; }
+        label { display: block; margin-bottom: 8px; color: #94a3b8; font-size: 0.85rem; }
+        
         input, select, textarea {
             width: 100%; padding: 12px; background: #0f172a; border: 1px solid var(--border);
-            border-radius: 10px; color: white; font-size: 1rem; box-sizing: border-box;
+            border-radius: 10px; color: white; font-size: 1rem; outline: none;
         }
-        
-        button.main-btn {
-            width: 100%; padding: 15px; background: var(--primary); color: white;
-            border: none; border-radius: 10px; font-weight: bold; cursor: pointer; transition: 0.2s;
+
+        input:focus { border-color: var(--primary); }
+
+        .main-btn {
+            width: 100%; padding: 14px; background: var(--primary); color: white;
+            border: none; border-radius: 10px; font-weight: bold; cursor: pointer;
+            font-size: 1rem; margin-top: 10px;
         }
-        button.main-btn:hover { filter: brightness(1.2); }
+
+        .main-btn:active { transform: scale(0.98); }
 
         .result {
-            margin-top: 20px; padding: 15px; border-radius: 10px;
-            background: rgba(79, 70, 229, 0.1); border-left: 4px solid var(--primary);
-            word-break: break-all;
+            margin-top: 20px; padding: 15px; border-radius: 12px;
+            background: rgba(99, 102, 241, 0.1); border: 1px dashed var(--primary);
         }
 
-        code { background: #000; padding: 4px 8px; border-radius: 4px; color: #10b981; }
+        .result p { margin: 8px 0; font-size: 0.95rem; }
+        strong { color: var(--secondary); font-family: monospace; font-size: 1.1rem; }
+        
+        #timer-display { font-size: 4rem; font-weight: 800; text-align: center; margin: 15px 0; color: var(--accent); }
     </style>
 </head>
 <body>
 
 <header>
     <h1>Super ToolBox Pro</h1>
-    <p>Todas as ferramentas que você precisa</p>
+    <p>Central de Utilitários Inteligentes</p>
 </header>
 
-<div class="nav-grid">
+<nav class="nav-grid">
     <button class="tab-btn active" onclick="openTab('calorias')">🔥 Calorias</button>
     <button class="tab-btn" onclick="openTab('imc')">⚖️ IMC</button>
-    <button class="tab-btn" onclick="openTab('bissexto')">📅 Bissexto</button>
-    <button class="tab-btn" onclick="openTab('senha')">🔐 Senhas</button>
+    <button class="tab-btn" onclick="openTab('bissexto')">📅 Ano</button>
+    <button class="tab-btn" onclick="openTab('senha')">🔐 Senha</button>
     <button class="tab-btn" onclick="openTab('texto')">📝 Texto</button>
     <button class="tab-btn" onclick="openTab('clima')">🌡️ Temp</button>
-    <button class="tab-btn" onclick="openTab('pomodoro')">⏱️ Pomodoro</button>
-</div>
+    <button class="tab-btn" onclick="openTab('bases')">🔢 Bases</button>
+    <button class="tab-btn" onclick="openTab('pomodoro')">⏱️ Foco</button>
+</nav>
 
-<div class="container">
+<main class="container">
     <div id="calorias" class="content active">
-        <h2>Calculadora de Calorias</h2>
-        <div class="form-group">
-            <label>Peso (kg)</label>
-            <input type="number" id="cal-p" placeholder="Ex: 80">
-        </div>
-        <div class="form-group">
-            <label>Idade</label>
-            <input type="number" id="cal-i" placeholder="Ex: 25">
-        </div>
+        <h2>🔥 Calculadora de Calorias</h2>
+        <div class="form-group"><label>Peso (kg)</label><input type="number" id="cal-p" placeholder="70"></div>
+        <div class="form-group"><label>Idade</label><input type="number" id="cal-i" placeholder="25"></div>
         <button class="main-btn" onclick="calcCal()">Calcular Meta</button>
         <div id="res-cal" class="result" style="display:none"></div>
     </div>
 
     <div id="imc" class="content">
-        <h2>Índice de Massa Corporal</h2>
-        <div class="form-group">
-            <label>Peso (kg)</label>
-            <input type="number" id="imc-p" step="0.1">
-        </div>
-        <div class="form-group">
-            <label>Altura (m)</label>
-            <input type="number" id="imc-a" step="0.01">
-        </div>
+        <h2>⚖️ Índice de Massa Corporal</h2>
+        <div class="form-group"><label>Peso (kg)</label><input type="number" id="imc-p" step="0.1"></div>
+        <div class="form-group"><label>Altura (m)</label><input type="number" id="imc-a" step="0.01"></div>
         <button class="main-btn" onclick="calcIMC()">Verificar IMC</button>
         <div id="res-imc" class="result" style="display:none"></div>
     </div>
 
     <div id="bissexto" class="content">
-        <h2>Ano Bissexto</h2>
-        <div class="form-group">
-            <label>Digite o Ano</label>
-            <input type="number" id="ano-val">
-        </div>
+        <h2>📅 Ano Bissexto</h2>
+        <div class="form-group"><label>Digite o Ano</label><input type="number" id="ano-val" placeholder="2024"></div>
         <button class="main-btn" onclick="calcAno()">Verificar</button>
         <div id="res-ano" class="result" style="display:none"></div>
     </div>
 
     <div id="senha" class="content">
-        <h2>Gerador de Senha</h2>
-        <div class="form-group">
-            <label>Tamanho da senha (8-20)</label>
-            <input type="number" id="pass-len" value="12" min="8" max="20">
-        </div>
-        <button class="main-btn" onclick="genPass()">Gerar Senha Forte</button>
+        <h2>🔐 Gerador de Senha Forte</h2>
+        <div class="form-group"><label>Tamanho (8-20)</label><input type="number" id="pass-len" value="12"></div>
+        <button class="main-btn" onclick="genPass()">Gerar Nova Senha</button>
         <div id="res-pass" class="result" style="display:none"></div>
     </div>
 
     <div id="texto" class="content">
-        <h2>Analisador de Texto</h2>
-        <textarea id="text-input" rows="5" placeholder="Cole seu texto aqui..." oninput="analyzeText()"></textarea>
-        <div id="res-text" class="result">
-            Palavras: <span id="count-w">0</span> | Caracteres: <span id="count-c">0</span>
+        <h2>📝 Analisador de Texto</h2>
+        <textarea id="text-input" rows="6" placeholder="Digite ou cole aqui..." oninput="analyzeText()"></textarea>
+        <div class="result">
+            <p>Palavras: <strong id="count-w">0</strong></p>
+            <p>Caracteres: <strong id="count-c">0</strong></p>
         </div>
     </div>
 
     <div id="clima" class="content">
-        <h2>Conversor de Temperatura</h2>
-        <div class="form-group">
-            <label>Celsius para Fahrenheit</label>
-            <input type="number" id="temp-c" placeholder="°C" oninput="convertTemp()">
+        <h2>🌡️ Conversor de Temperatura</h2>
+        <div class="form-group"><label>Graus Celsius (°C)</label><input type="number" id="temp-c" oninput="convertTemp()"></div>
+        <div class="result"><p>Fahrenheit: <strong id="res-temp">-- °F</strong></p></div>
+    </div>
+
+    <div id="bases" class="content">
+        <h2>🔢 Conversor de Bases</h2>
+        <div class="form-group"><label>Número Decimal</label><input type="number" id="dec-input" oninput="convertBases()"></div>
+        <div class="result">
+            <p>Binário: <strong id="res-bin">--</strong></p>
+            <p>Octal: <strong id="res-oct">--</strong></p>
+            <p>Hex: <strong id="res-hex">--</strong></p>
         </div>
-        <div class="result" id="res-temp">Fahrenheit: -- °F</div>
     </div>
 
     <div id="pomodoro" class="content">
-        <h2>Timer Pomodoro</h2>
-        <div style="font-size: 3rem; text-align: center; margin: 20px 0;" id="timer-display">25:00</div>
+        <h2>⏱️ Timer Pomodoro</h2>
+        <div id="timer-display">25:00</div>
         <button class="main-btn" id="pomo-btn" onclick="togglePomo()">Iniciar Foco</button>
     </div>
-    <div id="bases" class="content">
-    <h2>Conversor Numérico</h2>
-    <div class="form-group">
-        <label>Número Decimal</label>
-        <input type="number" id="dec-input" placeholder="Ex: 255" oninput="convertBases()">
-    </div>
-    <div class="result">
-        <p>Binário: <strong id="res-bin">--</strong></p>
-        <p>Octal: <strong id="res-oct">--</strong></p>
-        <p>Hexadecimal: <strong id="res-hex">--</strong></p>
-    </div>
-</div>
-</div>
+</main>
 
 <script>
-    // Navegação
     function openTab(id) {
         document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -213,102 +208,84 @@
         event.currentTarget.classList.add('active');
     }
 
-    // Lógica Calorias
     function calcCal() {
         const p = document.getElementById('cal-p').value;
         const i = document.getElementById('cal-i').value;
         if(!p || !i) return;
-        const res = 66 + (13.7 * p) - (6.8 * i);
-        const div = document.getElementById('res-cal');
-        div.style.display = 'block';
-        div.innerHTML = `Sua Taxa Metabólica estimada: <strong>${Math.round(res)} kcal</strong>`;
+        const tmb = 66 + (13.7 * p) - (6.8 * i);
+        const res = document.getElementById('res-cal');
+        res.style.display = 'block';
+        res.innerHTML = `Basal: <strong>${Math.round(tmb)} kcal</strong>`;
     }
 
-    // Lógica IMC
     function calcIMC() {
         const p = document.getElementById('imc-p').value;
         const a = document.getElementById('imc-a').value;
+        if(!p || !a) return;
         const imc = (p / (a * a)).toFixed(1);
-        const div = document.getElementById('res-imc');
-        div.style.display = 'block';
-        div.innerHTML = `Seu IMC: <strong>${imc}</strong>`;
+        const res = document.getElementById('res-imc');
+        res.style.display = 'block';
+        res.innerHTML = `Seu IMC é <strong>${imc}</strong>`;
     }
 
-    // Lógica Bissexto
     function calcAno() {
-        const ano = document.getElementById('ano-val').value;
-        const bi = (ano % 4 === 0 && ano % 100 !== 0) || (ano % 400 === 0);
-        const div = document.getElementById('res-ano');
-        div.style.display = 'block';
-        div.innerHTML = bi ? "✅ É Bissexto!" : "❌ Não é Bissexto.";
+        const a = document.getElementById('ano-val').value;
+        const bi = (a % 4 === 0 && a % 100 !== 0) || (a % 400 === 0);
+        const res = document.getElementById('res-ano');
+        res.style.display = 'block';
+        res.innerHTML = bi ? "✅ <strong>É Bissexto</strong>" : "❌ <strong>Não é Bissexto</strong>";
     }
 
-    // Gerador de Senhas
     function genPass() {
         const len = document.getElementById('pass-len').value;
-        const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
+        const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*";
         let pass = "";
         for(let i=0; i<len; i++) pass += chars.charAt(Math.floor(Math.random()*chars.length));
-        const div = document.getElementById('res-pass');
-        div.style.display = 'block';
-        div.innerHTML = `Senha: <code>${pass}</code>`;
+        const res = document.getElementById('res-pass');
+        res.style.display = 'block';
+        res.innerHTML = `Senha: <strong>${pass}</strong>`;
     }
 
-    // Analisador de Texto
     function analyzeText() {
-        const txt = document.getElementById('text-input').value.trim();
-        document.getElementById('count-w').innerText = txt ? txt.split(/\s+/).length : 0;
-        document.getElementById('count-c').innerText = txt.length;
+        const t = document.getElementById('text-input').value.trim();
+        document.getElementById('count-w').innerText = t ? t.split(/\s+/).length : 0;
+        document.getElementById('count-c').innerText = t.length;
     }
 
-    // Conversor Temp
     function convertTemp() {
         const c = document.getElementById('temp-c').value;
-        const f = (c * 9/5) + 32;
-        document.getElementById('res-temp').innerText = c ? `Fahrenheit: ${f.toFixed(1)} °F` : "Fahrenheit: -- °F";
+        const f = c ? (c * 9/5 + 32).toFixed(1) : "--";
+        document.getElementById('res-temp').innerText = `${f} °F`;
     }
 
-    // Pomodoro Simples
+    function convertBases() {
+        const d = document.getElementById('dec-input').value;
+        if(d === "") return;
+        const n = parseInt(d);
+        document.getElementById('res-bin').innerText = n.toString(2);
+        document.getElementById('res-oct').innerText = n.toString(8);
+        document.getElementById('res-hex').innerText = n.toString(16).toUpperCase();
+    }
+
     let timer;
-    let seconds = 1500;
+    let secLeft = 1500;
     function togglePomo() {
         const btn = document.getElementById('pomo-btn');
-        if (timer) {
+        if(timer) {
             clearInterval(timer);
             timer = null;
             btn.innerText = "Retomar";
         } else {
             btn.innerText = "Pausar";
             timer = setInterval(() => {
-                seconds--;
-                let min = Math.floor(seconds / 60);
-                let sec = seconds % 60;
-                document.getElementById('timer-display').innerText = `${min}:${sec < 10 ? '0'+sec : sec}`;
-                if (seconds <= 0) {
-                    clearInterval(timer);
-                    alert("Tempo esgotado!");
-                }
+                secLeft--;
+                const m = Math.floor(secLeft / 60);
+                const s = secLeft % 60;
+                document.getElementById('timer-display').innerText = `${m}:${s < 10 ? '0'+s : s}`;
+                if(secLeft <= 0) clearInterval(timer);
             }, 1000);
         }
     }
-    function convertBases() {
-    const dec = document.getElementById('dec-input').value;
-    const resBin = document.getElementById('res-bin');
-    const resOct = document.getElementById('res-oct');
-    const resHex = document.getElementById('res-hex');
-
-    if (dec !== "") {
-        const num = parseInt(dec);
-        resBin.innerText = num.toString(2);
-        resOct.innerText = num.toString(8);
-        resHex.innerText = num.toString(16).toUpperCase();
-    } else {
-        resBin.innerText = "--";
-        resOct.innerText = "--";
-        resHex.innerText = "--";
-    }
-}
 </script>
-
 </body>
 </html>
