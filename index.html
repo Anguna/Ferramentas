@@ -218,14 +218,37 @@
         res.innerHTML = `Basal: <strong>${Math.round(tmb)} kcal</strong>`;
     }
 
-    function calcIMC() {
+  function calcIMC() {
         const p = document.getElementById('imc-p').value;
         const a = document.getElementById('imc-a').value;
+        
         if(!p || !a) return;
+        
         const imc = (p / (a * a)).toFixed(1);
         const res = document.getElementById('res-imc');
         res.style.display = 'block';
-        res.innerHTML = `Seu IMC é <strong>${imc}</strong>`;
+
+        let classificacao = "";
+        let cor = "";
+
+        if (imc < 18.5) {
+            classificacao = "Abaixo do peso (Magra)";
+            cor = "#fbbf24"; // Amarelo
+        } else if (imc < 25) {
+            classificacao = "Peso normal";
+            cor = "#10b981"; // Verde
+        } else if (imc < 30) {
+            classificacao = "Sobrepeso";
+            cor = "#f59e0b"; // Laranja
+        } else {
+            classificacao = "Obesidade";
+            cor = "#f43f5e"; // Vermelho
+        }
+
+        res.innerHTML = `
+            <p>Seu IMC é <strong>${imc}</strong></p>
+            <p>Classificação: <span style="color:${cor}; font-weight:bold">${classificacao}</span></p>
+        `;
     }
 
     function calcAno() {
