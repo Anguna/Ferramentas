@@ -218,9 +218,9 @@
         res.innerHTML = `Basal: <strong>${Math.round(tmb)} kcal</strong>`;
     }
 
-  function calcIMC() {
-        const p = document.getElementById('imc-p').value;
-        const a = document.getElementById('imc-a').value;
+ function calcIMC() {
+        const p = parseFloat(document.getElementById('imc-p').value);
+        const a = parseFloat(document.getElementById('imc-a').value);
         
         if(!p || !a) return;
         
@@ -228,26 +228,33 @@
         const res = document.getElementById('res-imc');
         res.style.display = 'block';
 
+        // Cálculo do peso ideal (Faixa de IMC 18.5 a 24.9)
+        const pesoMin = (18.5 * (a * a)).toFixed(1);
+        const pesoMax = (24.9 * (a * a)).toFixed(1);
+
         let classificacao = "";
         let cor = "";
 
         if (imc < 18.5) {
             classificacao = "Abaixo do peso (Magra)";
-            cor = "#fbbf24"; // Amarelo
+            cor = "#fbbf24"; 
         } else if (imc < 25) {
             classificacao = "Peso normal";
-            cor = "#10b981"; // Verde
+            cor = "#10b981"; 
         } else if (imc < 30) {
             classificacao = "Sobrepeso";
-            cor = "#f59e0b"; // Laranja
+            cor = "#f59e0b"; 
         } else {
             classificacao = "Obesidade";
-            cor = "#f43f5e"; // Vermelho
+            cor = "#f43f5e"; 
         }
 
         res.innerHTML = `
             <p>Seu IMC é <strong>${imc}</strong></p>
             <p>Classificação: <span style="color:${cor}; font-weight:bold">${classificacao}</span></p>
+            <hr style="border: 0; border-top: 1px solid var(--border); margin: 10px 0;">
+            <p style="font-size: 0.85rem; color: #94a3b8;">Baseado na sua altura, seu peso ideal seria entre:</p>
+            <p><strong>${pesoMin}kg</strong> e <strong>${pesoMax}kg</strong></p>
         `;
     }
 
